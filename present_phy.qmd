@@ -7,7 +7,7 @@ format:
     theme: [serif, theme/styles.scss]
     slide-number: c/t
     logo: "https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png"
-    footer: "[https://github.com/mathiashole](https://github.com/mathiashole)"
+    footer: "[https://github.com/mathiashole/phydemo](https://github.com/mathiashole/phydemo)"
     code-copy: true
     center-title-slide: false
     include-in-header: heading-meta.html
@@ -266,7 +266,7 @@ print(p1)
 
 
 <br>
-code at <https://github.com/mathiashole>
+code at <https://github.com/mathiashole/phydemo>
 
 :::{.author}
 Mathias Mangino<br>

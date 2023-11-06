@@ -398,10 +398,20 @@
 <p>Edición 2023</p>
 </div>
 <p><br><br></p>
-<div class="half-image">
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="half-image quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="www/IIBCE-logo.jpg" style="width:40.0%" alt="icon iibce"></p>
+<figure><p><img data-src="www/Udelar-.jpg" alt="icon iibce"></p>
 </figure>
+</div>
+</div>
+<div class="half-image quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure><p><img data-src="www/IIBCE-logo.jpg" alt="icon iibce"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 <div class="author">
@@ -409,18 +419,19 @@
 </div>
 </section><section><section id="trypanosoma-cruzi" class="title-slide slide level1" data-transition="slide" data-transition-speed="slow"><h1><strong><em>Trypanosoma cruzi</em></strong></h1>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:70%;">
 <div>
 <ul>
+<li class="fragment"><p><code>Trypanosoma cruzi</code> es un protista de la familia Trypanosomatidae, caracterizado un <code>solo flagelo</code> y una <code>sola mitocondria</code>. <code>Parásito intracelular</code> con un ciclo de vida que involucra <code>vertebrados e invertebrados</code>.</p></li>
 <li class="fragment"><p>Es el agente etiológico de la <code>enfermedad de Chagas</code> o tripanosomiasis americana.</p></li>
 <li class="fragment"><p>Esta <code>enfermedad afecta a 6-7 millones</code> de personas principalmente en <code>América Latina</code>, con un número creciente de casos en <code>países no endémicos</code> como <code>Canadá</code>, <code>Estados Unidos</code> y algunos países <code>europeos</code>.</p></li>
 <li class="fragment"><p>El genoma de <em>T. cruzi</em> se expandió y <code>es 2.3 veces más grande</code> que el de <em>T. brucei y T. rangeli</em>.</p></li>
-<li class="fragment"><p>Aproximadamente el <code>52% del genoma de *T. cruzi*</code> está compuesto por secuencias de <code>ADN repetitivas</code>.</p></li>
+<li class="fragment"><p>Aproximadamente el <code>52% del genoma de</code> <em>T. cruzi</em> está compuesto por secuencias de <code>ADN repetitivas</code>.</p></li>
 <li class="fragment"><p>Las <code>familias multigenicas</code> son una de las <code>cuasas de la expansión</code> y <code>diversificación</code> dramáticas de las <code>secuencias repetitivas</code>.</p></li>
 <li class="fragment"><p>En particular las <code>familias multigénicas que codifican proteínas</code>, como las proteínas (TS, MASP, mucinas, gp63, <code>RHS</code> y DGF-1)</p></li>
 </ul>
 </div>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:30%;">
 <p><img data-src="www/try_pic.jpg" data-fig-align="rigth" alt="pic try"><br>(Kingwell, 2022)</p>
 </div>
 </div>
@@ -439,7 +450,7 @@
 </div>
 </section><section id="objetivos" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Objetivos</h2>
 <p><br></p>
-<p>En este contexto, Bernardo y colaboradores llevaron a cabo una investigación centrada en las RHS. Como parte de su estudio, <code>realizaron una clasificación utilizando un enfoque filogenético</code>.</p>
+<p>En este contexto, Bernardo y colaboradores llevaron a cabo una investigación centrada en las RHS. Como parte de su estudio, <code>realizaron una clasificación de las RHS transcripta utilizando un enfoque filogenético</code>.</p>
 <p><br></p>
 <div class="fragment">
 <dl>
@@ -461,7 +472,8 @@ Replicar esta sección de su investigación utilizando los datos proporcionados 
 <li>Materiales para obtener secuencias
 <ul>
 <li>Uso de <code>BLAST</code>, específicamente la aplicación <code>rpsblast</code> para <code>identificar dominios conservados</code>, con un <code>e-value</code> de 1×10^-5.</li>
-<li>Descarga y <code>construcción de perfiles</code> con bases de datos de dominios conservados como <code>CDD</code>, <code>Pfam</code>, <code>SMART</code>, <code>KOG</code>, <code>COG</code>, <code>PRK</code> y <code>TIGR</code>.</li>
+<li>Descarga y <code>construcción de perfiles</code> con bases de datos de dominios conservados como <code>CDD</code>, <code>Pfam</code>, <code>SMART</code>, <code>KOG</code>, <code>COG</code>, <code>PRK</code> y <code>TIGR</code>. <a href="https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/Structure/cdd/PF07999">pfam07999, PTZ00209, y TIGRO1631</a>
+</li>
 </ul>
 </li>
 <li>Secuencias utilizadas
@@ -501,11 +513,12 @@ Replicar esta sección de su investigación utilizando los datos proporcionados 
 </ul>
 </div><div class="column" style="width:45%;">
 <ul>
-<li>Alineamientos múltiples realizados con <code>MAFFT</code>
-</li>
+<li>Alineamientos múltiples realizados con <code>MAFFT</code> (FFT-NS-2) y <code>trimal</code> con enfoque heurístico -automatizado1 para seleccionar el mejor método automático para recortar el alineamiento.</li>
 </ul>
 <div class="cell">
-<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">mafft</span> secuencias_entrada.fasta <span class="op">&gt;</span> secuencias_salida.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="ex">mafft</span> secuencias_entrada.fasta <span class="op">&gt;</span> secuencias_salida.fasta</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ex">trimal</span> <span class="at">-in</span> secuencia_salida.fasta <span class="at">-out</span> trimal_salida.fasta <span class="at">-automated1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -526,7 +539,18 @@ Replicar esta sección de su investigación utilizando los datos proporcionados 
 </ul>
 </div>
 </div>
-</section><section id="resultados" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Resultados</h2>
+</section><section id="materiales-2" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Materiales</h2>
+<p>Flujo de trabajo</p>
+
+<img data-src="www/dig.drawio.png" alt="phy ber" class="r-stretch quarto-figure-center"></section><section id="resultados" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Resultados</h2>
+<p><br></p>
+<p>Alineamiento de los transcriptos de las RHS de genoma CLB</p>
+<div class="quarto-figure quarto-figure-left">
+<figure><p><img data-src="www/al_rhs.png" style="width:100.0%" alt="phy ber"></p>
+</figure>
+</div>
+<p>Modelo seleccionado por iqtree <br><img data-src="www/iq_pic.png" style="width:40.0%" data-fig-align="center" alt="phy ber"></p>
+</section><section id="resultados-1" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Resultados</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="www/phy_ber.jpeg" style="width:80.0%" data-fig-align="left" alt="phy ber"> (Bernardo et al., 2020)</p>
@@ -537,7 +561,7 @@ Replicar esta sección de su investigación utilizando los datos proporcionados 
 </div>
 </div>
 </div>
-</section><section id="resultados-1" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Resultados</h2>
+</section><section id="resultados-2" class="slide level2" data-transition="slide" data-transition-speed="slow"><h2>Resultados</h2>
 <div class="cell">
 <details><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(ggtree)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>

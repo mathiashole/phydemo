@@ -37,8 +37,16 @@ Edición 2023
 <br>
 <br>
 
+::: {layout-ncol=2}
+
+:::{.half-image}
+![](www/Udelar-.jpg){fig-alt="icon iibce" fig-align="center" width="40%"}
+:::
+
 :::{.half-image}
 ![](www/IIBCE-logo.jpg){fig-alt="icon iibce" fig-align="center" width="40%"}
+:::
+
 :::
 
 :::{.author}
@@ -51,16 +59,17 @@ Customer Success, RStudio<br>
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="70%"}
 
 ::: {.incremental}
+- `Trypanosoma cruzi` es un protista de la familia Trypanosomatidae, caracterizado un `solo flagelo` y una `sola mitocondria`. `Parásito intracelular` con un ciclo de vida que involucra `vertebrados e invertebrados`.
 - Es el agente etiológico de la `enfermedad de Chagas` o tripanosomiasis americana.
 
 - Esta `enfermedad afecta a 6-7 millones` de personas principalmente en `América Latina`, con un número creciente de casos en `países no endémicos` como `Canadá`, `Estados Unidos` y algunos países `europeos`.
 
 - El genoma de *T. cruzi* se expandió y `es 2.3 veces más grande` que el de *T. brucei y T. rangeli*.  
 
-- Aproximadamente el `52% del genoma de *T. cruzi*` está compuesto por secuencias de `ADN repetitivas`.
+- Aproximadamente el `52% del genoma de` *T. cruzi* está compuesto por secuencias de `ADN repetitivas`.
 
 - Las `familias multigenicas` son una de las `cuasas de la expansión` y `diversificación` dramáticas de las `secuencias repetitivas`.
 
@@ -69,7 +78,7 @@ Customer Success, RStudio<br>
 
 :::
 
-::: {.column width="40%"}
+::: {.column width="30%"}
 ![](www/try_pic.jpg){fig-alt="pic try" fig-align="rigth"}
 <br>(Kingwell, 2022)
 :::
@@ -96,7 +105,7 @@ Customer Success, RStudio<br>
 
 <br>
 
-En este contexto, Bernardo y colaboradores llevaron a cabo una investigación centrada en las RHS. Como parte de su estudio, `realizaron una clasificación utilizando un enfoque filogenético`. 
+En este contexto, Bernardo y colaboradores llevaron a cabo una investigación centrada en las RHS. Como parte de su estudio, `realizaron una clasificación de las RHS transcripta utilizando un enfoque filogenético`. 
 
 <br>
 
@@ -119,7 +128,7 @@ Articulo <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7563717/">Bernard
 
 * Materiales para obtener secuencias
   - Uso de `BLAST`, específicamente la aplicación `rpsblast` para `identificar dominios conservados`, con un `e-value` de 1×10^-5.
-  - Descarga y `construcción de perfiles` con bases de datos de dominios conservados como `CDD`, `Pfam`, `SMART`, `KOG`, `COG`, `PRK` y `TIGR`.
+  - Descarga y `construcción de perfiles` con bases de datos de dominios conservados como `CDD`, `Pfam`, `SMART`, `KOG`, `COG`, `PRK` y `TIGR`. [pfam07999, PTZ00209, y TIGRO1631](https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/Structure/cdd/PF07999)
 
 * Secuencias utilizadas
   - `139` secuencias aminoacídicas de `RHS` tras la `eliminación de falsos positivos`.
@@ -170,7 +179,7 @@ rpsblast -query secuencias.fasta -db /home/ruta/ncbi_dataset/CDD_rhs/todos -eval
 :::
 ::: {.column width="45%"}
 
-* Alineamientos múltiples realizados con `MAFFT`
+* Alineamientos múltiples realizados con `MAFFT` (FFT-NS-2) y `trimal` con enfoque heurístico -automatizado1 para seleccionar el mejor método automático para recortar el alineamiento.
 
 ```{bash, eval=FALSE}
 #| message: false
@@ -179,6 +188,8 @@ rpsblast -query secuencias.fasta -db /home/ruta/ncbi_dataset/CDD_rhs/todos -eval
 #| echo: true
 
 mafft secuencias_entrada.fasta > secuencias_salida.fasta
+
+trimal -in secuencia_salida.fasta -out trimal_salida.fasta -automated1
 
 ```
 
@@ -203,6 +214,22 @@ iqtree2 -s secuenica_salida.fasta -B 1000
 :::
 
 ::::
+
+## Materiales {transition="slide" transition-speed="slow"}
+Flujo de trabajo
+
+![](www/dig.drawio.png){fig-alt="phy ber" fig-align="center"}
+
+## Resultados {transition="slide" transition-speed="slow"}
+
+<br>
+
+Alineamiento de los transcriptos de las RHS de genoma CLB
+
+![](www/al_rhs.png){fig-alt="phy ber" fig-align="left" width="100%"}
+
+Modelo seleccionado por iqtree <br>
+![](www/iq_pic.png){fig-alt="phy ber" fig-align="center" width="40%"}
 
 ## Resultados {transition="slide" transition-speed="slow"}
 

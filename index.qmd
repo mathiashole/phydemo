@@ -1,0 +1,302 @@
+---
+date: "`r as.Date(Sys.time())`"
+format:
+  revealjs:
+    chalkboard: true
+    scrollable: true
+    theme: [serif, theme/styles.scss]
+    slide-number: c/t
+    logo: "https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png"
+    footer: "[https://github.com/mathiashole/phydemo](https://github.com/mathiashole/phydemo)"
+    code-copy: true
+    center-title-slide: false
+    include-in-header: heading-meta.html
+    code-link: true
+    code-overflow: wrap
+    highlight-style: github
+    height: 1080
+    width: 1920
+    link-external-newwindow: true
+execute: 
+  eval: true
+  echo: true
+editor_options: 
+  chunk_output_type: console
+---
+
+# {transition="slide" transition-speed="slow"}
+
+:::{.title-center}
+Filogenia Molecular 
+:::
+
+:::{.center}
+Edición 2023
+:::
+
+<br>
+<br>
+
+::: {layout-ncol=2}
+
+:::{.half-image}
+![](www/Udelar-.jpg){fig-alt="icon iibce" fig-align="center" width="40%"}
+:::
+
+:::{.half-image}
+![](www/IIBCE-logo.jpg){fig-alt="icon iibce" fig-align="center" width="40%"}
+:::
+
+:::
+
+:::{.author}
+Mathias Mangino<br>
+Customer Success, RStudio<br>
+:::
+
+
+# ***Trypanosoma cruzi*** {transition="slide" transition-speed="slow"}
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+::: {.incremental}
+- `Trypanosoma cruzi` es un protista de la familia Trypanosomatidae, caracterizado un `solo flagelo` y una `sola mitocondria`. `Parásito intracelular` con un ciclo de vida que involucra `vertebrados e invertebrados`.
+- Es el agente etiológico de la `enfermedad de Chagas` o tripanosomiasis americana.
+
+- Esta `enfermedad afecta a 6-7 millones` de personas principalmente en `América Latina`, con un número creciente de casos en `países no endémicos` como `Canadá`, `Estados Unidos` y algunos países `europeos`.
+
+- El genoma de *T. cruzi* se expandió y `es 2.3 veces más grande` que el de *T. brucei y T. rangeli*.  
+
+- Aproximadamente el `52% del genoma de` *T. cruzi* está compuesto por secuencias de `ADN repetitivas`.
+
+- Las `familias multigenicas` son una de las `cuasas de la expansión` y `diversificación` dramáticas de las `secuencias repetitivas`.
+
+- En particular las `familias multigénicas que codifican proteínas`, como las proteínas (TS, MASP, mucinas, gp63, `RHS` y DGF-1)
+:::
+
+:::
+
+::: {.column width="30%"}
+![](www/try_pic.jpg){fig-alt="pic try" fig-align="rigth"}
+<br>(Kingwell, 2022)
+:::
+
+::::
+
+## Retrotransposon Hot Spot (RHS) {transition="slide" transition-speed="slow"}
+::: {.incremental}
+
+<br>
+
+- Algunas familias de `retrotransposones` se insertan en regiones especificas de las `RHS`, generando `seudogenes  de RHS`.
+- Se han evidenciado múltiples RHS en multiples genomas de `diferentes tripanosomas`.
+- Las proteínas RHS de *T. brucei* comparten una region `N-terminal conservada` y la region `C-terminal es variable`.
+- Se identificaron por primera vez en *T. brucei* y se clasificaron en `seis subfamilias (RHS1 a RHS6)` en función de la región C-terminal.
+
+- Se ha sugieren que las RHS están `involucradas en el control de la expansión de los retroelementos`.
+- Se ha planteo la hipótesis de que los `seudogenes RHS` en *T. brucei* son una `fuente de siARN antisentido` que `regula la expresión de la familia RHS`. 
+- La familia de las RHS podría estar `involucrada` en la `modelización de la cromatina`, la `transcripción` y la `exportación de ARNm` en *T. brucei*.
+
+:::
+
+## Objetivos {transition="slide" transition-speed="slow"}
+
+<br>
+
+En este contexto, Bernardo y colaboradores llevaron a cabo una investigación centrada en las RHS. Como parte de su estudio, `realizaron una clasificación de las RHS transcripta utilizando un enfoque filogenético`. 
+
+<br>
+
+. . .
+
+objetivo
+: Replicar esta sección de su investigación utilizando los datos proporcionados por el articulo.
+
+. . .
+
+:::{.credit}
+Articulo <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7563717/">Bernardo et al., 2020</a>
+:::
+
+## Materiales {transition="slide" transition-speed="slow"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+* Materiales para obtener secuencias
+  - Uso de `BLAST`, específicamente la aplicación `rpsblast` para `identificar dominios conservados`, con un `e-value` de 1×10^-5.
+  - Descarga y `construcción de perfiles` con bases de datos de dominios conservados como `CDD`, `Pfam`, `SMART`, `KOG`, `COG`, `PRK` y `TIGR`. [pfam07999, PTZ00209, y TIGRO1631](https://0-www-ncbi-nlm-nih-gov.brum.beds.ac.uk/Structure/cdd/PF07999)
+
+* Secuencias utilizadas
+  - `139` secuencias aminoacídicas de `RHS` tras la `eliminación de falsos positivos`.
+
+:::
+::: {.column width="50%"}
+
+* Comando para `crear los perfiles` 
+
+```{bash, eval=FALSE}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| echo: true
+
+makeprofiledb -title todos -in todos.pn -out todos -threshold 9.82 -scale 100.0 -dbtype rps -index true
+
+```
+
+<br>
+* Busqueda mediante perfiles de `dominios conservados` en nuestras trascriptos 
+
+```{bash, eval=FALSE}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| echo: true
+
+rpsblast -query secuencias.fasta -db /home/ruta/ncbi_dataset/CDD_rhs/todos -evalue 1e-5 -max_target_seqs 1 -max_hsps 1 -outfmt '6 std qlen slen' -out salida.txt
+
+```
+
+:::
+
+::::
+
+## Materiales {transition="slide" transition-speed="slow"}
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+* Materiales para filogenia
+  - Alineamientos múltiples realizados con `MUSCLE`.
+  - Uso de `RAxML v8.2.9` con el método de máxima verosimilitud `(ML)`, empleando el modelo PROTGAMMAAUTO seleccionado según el criterio de Akaike (AIC) y generando `1000 réplicas bootstrap`.
+  - Visualización de la filogenia con `Figtree` v1.4.2.
+  
+:::
+::: {.column width="45%"}
+
+* Alineamientos múltiples realizados con `MAFFT` (FFT-NS-2) y `trimal` con enfoque heurístico -automatizado1 para seleccionar el mejor método automático para recortar el alineamiento.
+
+```{bash, eval=FALSE}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| echo: true
+
+mafft secuencias_entrada.fasta > secuencias_salida.fasta
+
+trimal -in secuencia_salida.fasta -out trimal_salida.fasta -automated1
+
+```
+
+* Se uso `iqtree2` con el método de `ML`, empleando el modelo Q.mammal+F+I+I+R5 seleccionado según el criterio de Akaike (AIC), criterio bayesiano y generando `1000 réplicas bootstrap`.
+
+```{bash, eval=FALSE}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| echo: true
+
+iqtree2 -s secuenica_salida.fasta -B 1000
+
+```
+
+* Visualización de la filogenia con `Figtree`
+
+:::
+
+::: {.incremental}
+- Asumen que `los grupos se forman` cuando los valores de `bootstrap` superan el umbral de `75`. `Categorizaron` exitosamente `74` secuencias en `10 grupos`, mientras que las `65` secuencias con valores de bootstrap por debajo del umbral `no se categorizaron`.
+:::
+
+::::
+
+## Materiales {transition="slide" transition-speed="slow"}
+Flujo de trabajo
+
+![](www/dig.drawio.png){fig-alt="phy ber" fig-align="center"}
+
+## Resultados {transition="slide" transition-speed="slow"}
+
+<br>
+
+Alineamiento de los transcriptos de las RHS de genoma CLB
+
+![](www/al_rhs.png){fig-alt="phy ber" fig-align="left" width="100%"}
+
+Modelo seleccionado por iqtree <br>
+![](www/iq_pic.png){fig-alt="phy ber" fig-align="center" width="40%"}
+
+## Resultados {transition="slide" transition-speed="slow"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](www/phy_ber.jpeg){fig-alt="phy ber" fig-align="left" width="80%"}
+(Bernardo et al., 2020)
+
+:::
+::: {.column width="50%"}
+
+![](www/phy_own.png){fig-alt="phy ber" fig-align="left" width="70%"}
+
+:::
+
+::::
+
+## Resultados {transition="slide" transition-speed="slow"}
+
+```{r}
+#| message: false
+#| warning: false
+#| code-fold: true
+#| echo: true
+
+
+library(ggtree)
+library(tidyverse)
+
+tree <- read.tree("data/rhs.contree")
+
+d <- data.frame(node=c(171, 232, 156, 269, 272, 279), type=c("1", "2", "3", "4", "5", "6"))
+
+p1 <- ggtree(tree, ladderize=FALSE, layout="roundrect") +
+  geom_treescale(x=2, y=0, width = 1)+
+  geom_nodelab(
+    mapping = aes(
+      x = branch
+    ),
+    nudge_y = 0.36
+  ) + geom_hilight(data=d, aes(node=node, fill=type),
+                   type = "roundrect") +
+  theme(legend.position = "none")
+
+xpw <- ggtree(tree, ladderize=FALSE, layout="roundrect") +
+  geom_text(aes(label=node), hjust=-0.2, alpha = .6)
+
+print(p1)
+
+
+```
+
+
+# Gracias
+
+- [quarto.org](https://quarto.org/)  
+- [ggtree](https://bioconductor.org/packages/release/bioc/html/ggtree.html)  
+- [tidyverse](https://www.tidyverse.org/)
+
+
+<br>
+code at <https://github.com/mathiashole/phydemo>
+
+:::{.author}
+Mathias Mangino<br>
+Customer Success, RStudio<br>
+:::
+  
